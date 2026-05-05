@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Görkem AI</title>
+</head>
+<body>
+  <h1>Görkem AI 🤖</h1>
+
+  <input id="input" placeholder="Bir şey yaz..." />
+  <button onclick="cevapla()">Gönder</button>
+
+  <p id="cevap"></p>
+
+  <script>
+    function cevapla() {
+      let mesaj = document.getElementById("input").value.toLowerCase();
+      let cevap = "Anlamadım 😅";
+
+      if(mesaj.includes("merhaba")) cevap = "Merhaba!";
+      if(mesaj.includes("nasılsın")) cevap = "İyiyim, sen?";
+      if(mesaj.includes("matematik")) cevap = "Matematik sorunu yaz!";
+
+      document.getElementById("cevap").innerText = cevap;
+    }
+  </script>
+</body>
+</html>
