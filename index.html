@@ -57,10 +57,12 @@
 
 <!-- 🎮 OYUN 2 -->
 <div class="game">
-  <h3>⚡ Hızlı Tıkla</h3>
-  <p>Puan: <span id="puan">0</span></p>
+  <h3>⚡ 10 Saniye Refleks Oyunu</h3>
 
-  <button onclick="puanla()" id="btn">TIKLA</button>
+  <p>Süre: <span id="time">10</span></p>
+  <p>Puan: <span id="score">0</span></p>
+
+  <button id="btn" onclick="clickBtn()">TIKLA</button>
 </div>
 
 <script>
@@ -115,14 +117,50 @@ function oyna1() {
   }
 }
 
-// ---------------- OYUN 2 ----------------
-function puanla() {
-  puan++;
-  document.getElementById("puan").innerText = puan;
+// ---------------- REFLEKS OYUN ----------------
+let score = 0;
+let time = 10;
+let gameStarted = false;
+let timer;
 
+function startGame() {
+  gameStarted = true;
+
+  timer = setInterval(() => {
+    time--;
+    document.getElementById("time").innerText = time;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      gameStarted = false;
+      alert("Oyun bitti! Skor: " + score);
+    }
+  }, 1000);
+}
+
+function clickBtn() {
+  if (!gameStarted) startGame();
+
+  if (time <= 0) return;
+
+  score++;
+  document.getElementById("score").innerText = score;
+
+  moveButton();
+}
+
+function moveButton() {
   let btn = document.getElementById("btn");
-  btn.style.marginLeft = Math.random() * 100 + "px";
-  btn.style.marginTop = Math.random() * 20 + "px";
+
+  let maxX = window.innerWidth - 100;
+  let maxY = window.innerHeight - 100;
+
+  let x = Math.random() * maxX;
+  let y = Math.random() * maxY;
+
+  btn.style.position = "fixed";
+  btn.style.left = x + "px";
+  btn.style.top = y + "px";
 }
 
 </script>
