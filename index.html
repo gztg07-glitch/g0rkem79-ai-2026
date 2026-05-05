@@ -6,7 +6,7 @@
 <body>
   <h1>Görkem AI 🤖</h1>
 
-  <input id="input" placeholder="Bir şey yaz..." />
+  <input id="input" placeholder="2+2 yaz veya merhaba" />
   <button onclick="cevapla()">Gönder</button>
 
   <p id="cevap"></p>
@@ -14,11 +14,28 @@
   <script>
     function cevapla() {
       let mesaj = document.getElementById("input").value.toLowerCase();
-      let cevap = "Anlamadım 😅";
+      mesaj = mesaj.replace(/\s/g, "");
 
-      if(mesaj.includes("merhaba")) cevap = "Merhaba!";
-      if(mesaj.includes("nasılsın")) cevap = "İyiyim, sen?";
-      if(mesaj.includes("matematik")) cevap = "Matematik sorunu yaz!";
+      let cevap = "";
+
+      // MATEMATİK
+      if (/^[0-9+\-*/().]+$/.test(mesaj)) {
+        try {
+          cevap = eval(mesaj);
+        } catch {
+          cevap = "Hatalı işlem";
+        }
+      }
+      // YAZI CEVAPLARI
+      else if (mesaj.includes("merhaba")) {
+        cevap = "Merhaba!";
+      }
+      else if (mesaj.includes("nasılsın")) {
+        cevap = "İyiyim, sen?";
+      }
+      else {
+        cevap = "Sadece 2+2 gibi matematik yaz veya selam ver";
+      }
 
       document.getElementById("cevap").innerText = cevap;
     }
